@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.holiday.mapper.HolidayMapper">
+
+    <insert id="addHoliday">
+        insert into atd_holidays (h_year, h_month, h_day)
+        values (#{year}, #{month}, #{day});
+    </insert>
+    <delete id="removeHoliday">
+        delete
+        from atd_holidays
+        where h_day = #{day}
+          and h_month = #{month}
+          and h_year = #{year}
+    </delete>
+    <select id="getHolidaysByYear" resultType="java.lang.String">
+        select concat(h_year, '-', h_month, '-', h_day) 'holiday'
+        from atd_holidays where
+        <foreach collection="dates" item="date" separator="or">
+            h_year = #{date.year} and CONVERT(h_month, SIGNED) = CONVERT(#{date.month},SIGNED)
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,16 @@
+
+
+spring:
+  application:
+    name: attendance
+  datasource:
+    url: jdbc:mysql://localhost:3306/efficient
+    username: root
+    password: Aa123456
+
+server:
+  port: 10927
+
+mybatis:
+  typeAliasesPackage: com.newness.efficient.*.entity
+  mapperLocations: classpath:com/newness/efficient/attendance/*/mapper/*.xml
