@@ -1,4 +1,4 @@
-package com.newness.efficient.login.service;
+package com.newness.efficient.attendance.auth.service;
 
 import org.springframework.stereotype.Service;
 

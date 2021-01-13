@@ -7,6 +7,7 @@ spring:
     url: jdbc:mysql://localhost:3306/efficient
     username: root
     password: Aa123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 server:
   port: 10927
