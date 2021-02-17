@@ -3,9 +3,16 @@
 <mapper namespace="com.newness.efficient.attendance.holiday.mapper.HolidayMapper">
 
     <insert id="addHoliday">
-        insert into atd_holidays (h_year, h_month, h_day)
-        values (#{year}, #{month}, #{day});
+        insert into atd_holidays (h_year, h_month, h_day, during)
+        values (#{year}, #{month}, #{day}, #{during});
     </insert>
+    <update id="updateHoliday">
+        update atd_holidays
+        set during = 'pm'
+        where h_day = #{day}
+          and h_month = #{month}
+          and h_year = #{year}
+    </update>
     <delete id="removeHoliday">
         delete
         from atd_holidays
@@ -13,8 +20,8 @@
           and h_month = #{month}
           and h_year = #{year}
     </delete>
-    <select id="getHolidaysByYear" resultType="java.lang.String">
-        select concat(h_year, '-', h_month, '-', h_day) 'holiday'
+    <select id="getHolidaysByYear" resultType="java.util.Map">
+        select concat(h_year, '-', h_month, '-', h_day) 'holiday', during
         from atd_holidays where
         <foreach collection="dates" item="date" separator="or">
             h_year = #{date.year} and CONVERT(h_month, SIGNED) = CONVERT(#{date.month},SIGNED)

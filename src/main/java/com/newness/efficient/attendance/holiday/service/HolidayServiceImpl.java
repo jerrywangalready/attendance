@@ -23,7 +23,7 @@ public class HolidayServiceImpl implements HolidayService {
     }
 
     @Override
-    public List<String> getHolidaysByYear(List<Map<String, String>> dates) {
+    public List<Map<String, String>> getHolidaysByYear(List<Map<String, String>> dates) {
         return holidayMapper.getHolidaysByYear(dates);
     }
 
@@ -36,7 +36,10 @@ public class HolidayServiceImpl implements HolidayService {
             holiday.put("month", date[1]);
             holiday.put("day", date[2]);
             if ("1".equals(map.get("opt"))) {
+                holiday.put("during", "d");
                 holidayMapper.addHoliday(holiday);
+            } else if ("0".equals(map.get("opt"))) {
+                holidayMapper.updateHoliday(holiday);
             } else {
                 holidayMapper.removeHoliday(holiday);
             }

@@ -1,16 +1,18 @@
 package com.newness.efficient.attendance.holiday.controller;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.newness.efficient.attendance.holiday.service.HolidayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/holiday")
@@ -27,30 +29,30 @@ public class HolidayController {
     }
 
     @PostMapping("/getHolidaysByYear")
-    public List<String> getHolidaysByYear(@RequestBody Map<String, String> date, HttpServletRequest request) {
+    public List<Map<String, String>> getHolidaysByYear(@RequestBody Map<String, String> date, HttpServletRequest request) {
 
-        String key = "gasdwerwefscx232r";
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, 20);
-
-        String token = JWT.create()
-                .withClaim("userId", 123)
-                .withClaim("username", "jwttest")
-                .withExpiresAt(calendar.getTime())
-                .sign(Algorithm.HMAC256(key));
-
-        System.out.println(token);
-
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(key)).build();
-
-        DecodedJWT verify = jwtVerifier.verify(token);
-        System.out.println(verify.getClaim("userId").asInt());
-        System.out.println(verify.getClaim("username").asString());
-
-
-        System.out.println(request.getHeader("Authentication-Token"));
-        Enumeration<String> e = request.getHeaderNames();
+//        String key = "gasdwerwefscx232r";
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.add(Calendar.SECOND, 20);
+//
+//        String token = JWT.create()
+//                .withClaim("userId", 123)
+//                .withClaim("username", "jwttest")
+//                .withExpiresAt(calendar.getTime())
+//                .sign(Algorithm.HMAC256(key));
+//
+//        System.out.println(token);
+//
+//        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(key)).build();
+//
+//        DecodedJWT verify = jwtVerifier.verify(token);
+//        System.out.println(verify.getClaim("userId").asInt());
+//        System.out.println(verify.getClaim("username").asString());
+//
+//
+//        System.out.println(request.getHeader("Authentication-Token"));
+//        Enumeration<String> e = request.getHeaderNames();
 //        System.out.println(e);
 
         List<Map<String, String>> dates = new ArrayList<>();
@@ -84,5 +86,10 @@ public class HolidayController {
     public boolean updateHolidays(@RequestBody List<Map<String, String>> list) {
         holidayService.updateHolidays(list);
         return true;
+    }
+
+    @PostMapping("/getBalance")
+    public int getBalance() {
+          return 0;
     }
 }

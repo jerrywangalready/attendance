@@ -7,7 +7,7 @@ public interface HolidayService {
 
     boolean initHolidaysByYear(int year);
 
-    List<String> getHolidaysByYear(List<Map<String, String>> dates);
+    List<Map<String, String>> getHolidaysByYear(List<Map<String, String>> dates);
 
     void updateHolidays(List<Map<String, String>> list);
 }

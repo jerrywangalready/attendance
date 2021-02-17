@@ -15,3 +15,6 @@ server:
 mybatis:
   typeAliasesPackage: com.newness.efficient.*.entity
   mapperLocations: classpath:com/newness/efficient/attendance/*/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true

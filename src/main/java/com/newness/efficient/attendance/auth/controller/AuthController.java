@@ -1,68 +1,78 @@
 package com.newness.efficient.attendance.auth.controller;
 
-import com.auth0.jwt.exceptions.AlgorithmMismatchException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.newness.efficient.attendance.auth.bo.Authentication;
+import com.newness.efficient.attendance.auth.po.User;
+import com.newness.efficient.attendance.auth.service.AuthService;
+import com.newness.efficient.attendance.utils.AESCrypt;
 import com.newness.efficient.attendance.utils.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Calendar;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/auth")
 @Slf4j
 public class AuthController {
 
+    @Autowired
+    private AuthService authService;
+
     @PostMapping("/login")
-    public Authentication login(@RequestBody Map<String, String> user) {
-        System.out.println(user.get("username"));
-        System.out.println(user.get("password"));
-
-
-        Map<String, String> payload = new HashMap<>();
-        payload.put("username", user.get("username"));
-        String token = JWTUtils.getToken(payload);
-
+    public Authentication login(@RequestBody Map<String, String> loginInfo) {
         Authentication authentication = new Authentication();
-        authentication.setState(true);
-        authentication.setMsg("登录成功");
+        if (challengeUser(loginInfo)) {
+            authentication.setState(true);
+            authentication.setToken(getToken(loginInfo));
+            authentication.setUsername(loginInfo.get("username"));
+            authentication.setMsg("登录成功");
+
+            User user = authService.getUserInfoByUsername(authentication.getUsername());
+            authentication.setUser(user);
+        } else {
+            authentication.setState(false);
+            authentication.setMsg("账号或密码错误");
+        }
+        log.info(loginInfo.get("username") + "=>" + authentication.getMsg());
         return authentication;
     }
 
-    public Map test(String token) {
-        Map<String, Object> map = new HashMap<>();
-        try {
-            DecodedJWT verify = JWTUtils.verify(token);
-
-            map.put("state", true);
-            map.put("msg", "请求成功");
-        } catch (SignatureVerificationException e) {
-            e.printStackTrace();
-            map.put("msg", "无效签名");
-        } catch (TokenExpiredException e) {
-
-            map.put("msg", "token过期");
-        } catch (AlgorithmMismatchException e) {
-            map.put("msg", "token算法不一致");
-
-        } catch (Exception e) {
-
-            map.put("msg", "无效签名!");
-        }
-        return map;
+    private boolean challengeUser(Map<String, String> loginInfo) {
+        String rawPassword = AESCrypt.encrypt(loginInfo.get("password"));
+        String password = authService.getPassword(loginInfo.get("username"));
+        return password != null && Objects.equals(rawPassword, password);
     }
 
-    public static void main(String[] args) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.add(Calendar.DATE, 1);
-        System.out.println(calendar.getTime());
+    private String getToken(Map<String, String> loginInfo) {
+        Map<String, String> payload = new HashMap<>();
+        payload.put("username", loginInfo.get("username"));
+        return JWTUtils.getToken(payload);
+    }
+
+    @PostMapping("/isExistUsername")
+    public boolean isExistUsername(@RequestBody String username) {
+        User user = authService.getUserInfoByUsername(username);
+        return user != null && !user.getUsername().isEmpty();
+    }
+
+    @PostMapping("/signup")
+    public boolean signup(@RequestBody Map<String, String> signupInfo) {
+        String rawPassword = AESCrypt.encrypt(signupInfo.get("password"));
+        signupInfo.put("password", rawPassword);
+        int num = authService.addUser(signupInfo);
+        return num > 0;
+    }
+
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        String s = URLDecoder.decode("Absdwe%2Bgu987", "utf-8");
+        System.out.println(s);
     }
 }

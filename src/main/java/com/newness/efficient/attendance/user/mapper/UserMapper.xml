@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.user.mapper.UserMapper">
+
+    <insert id="addGroup">
+        insert into sys_group (group_id, group_name, create_date)
+        values (#{groupId}, #{groupName}, now())
+    </insert>
+
+    <update id="updateGroup">
+        update sys_group
+        set group_name = #{groupName}
+        where group_id = #{groupId}
+    </update>
+
+    <insert id="addMember">
+        insert into sys_group_user (group_id, username, leader)
+        values (#{groupId}, #{username}, #{leader});
+    </insert>
+
+    <select id="getUsers" resultType="java.util.Map">
+        select username, full_name
+        from sys_user
+        where instr(username, #{query}) > 0
+           or instr(full_name, #{query}) > 0
+    </select>
+
+    <select id="getGroupsNMembers" resultType="java.util.Map">
+        select g.group_id, g.group_name, m.username, m.leader, u.full_name
+        from sys_group_user m
+                 left join sys_group g
+                           on m.group_id = g.group_id
+                 left join sys_user u
+                           on m.username = u.username
+        order by m.group_id
+    </select>
+
+</mapper>

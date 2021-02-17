@@ -9,9 +9,10 @@ import java.util.Map;
 @Repository
 public interface HolidayMapper {
 
-    List<String> getHolidaysByYear(@Param("dates") List<Map<String, String>> dates);
+    List<Map<String, String>> getHolidaysByYear(@Param("dates") List<Map<String, String>> dates);
 
     int addHoliday(Map<String, String> map);
+    int updateHoliday(Map<String, String> map);
     int removeHoliday(Map<String, String> map);
 
 

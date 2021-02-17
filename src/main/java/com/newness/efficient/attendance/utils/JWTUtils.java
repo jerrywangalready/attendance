@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class JWTUtils {
 
-    private static final String PRIVATE_KEY = "g23sf";
+    private static final String PRIVATE_KEY = "HiOp4*1+Gr2Az=-";
 
     public static String getToken(Map<String, String> map) {
 
@@ -20,10 +20,14 @@ public class JWTUtils {
 
         builder.withExpiresAt(getDateOfTomorrow());
 
-        return JWT.create().sign(Algorithm.HMAC256(PRIVATE_KEY));
+        return builder.sign(Algorithm.HMAC256(PRIVATE_KEY));
     }
 
     public static DecodedJWT verify(String token) {
+//        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(PRIVATE_KEY)).build();
+//        DecodedJWT decodedJWT = jwtVerifier.verify(token);
+//        System.out.println(decodedJWT.getClaim("name").asString());
+//        return decodedJWT;
         return JWT.require(Algorithm.HMAC256(PRIVATE_KEY)).build().verify(token);
     }
 
@@ -33,7 +37,10 @@ public class JWTUtils {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.add(Calendar.DATE, 1);
+//        calendar.add(Calendar.SECOND, 20);
+//        System.out.println("过期时间" + calendar.getTime());
         return calendar.getTime();
     }
+
 
 }
