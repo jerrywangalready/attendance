@@ -18,11 +18,15 @@
         values (#{groupId}, #{username}, #{leader});
     </insert>
 
-    <select id="getUsers" resultType="java.util.Map">
-        select username, full_name
+    <select id="getUsers" resultType="com.newness.efficient.attendance.user.bo.Personnel">
+        select user_id, user_name, full_name, description, state, DATE_FORMAT(entry_date,'%Y-%m-%d') entry_date
         from sys_user
-        where instr(username, #{query}) > 0
-           or instr(full_name, #{query}) > 0
+        <where>
+            <if test="query != null and query != ''">
+                instr(user_name, #{query}) > 0
+                or instr(full_name, #{query}) > 0
+            </if>
+        </where>
     </select>
 
     <select id="getGroupsNMembers" resultType="java.util.Map">
@@ -31,8 +35,38 @@
                  left join sys_group g
                            on m.group_id = g.group_id
                  left join sys_user u
-                           on m.username = u.username
+                           on m.username = u.user_name
         order by m.group_id
+    </select>
+
+    <select id="getUsersGrid" resultType="java.util.Map">
+        select u.user_id,
+               user_name,
+               full_name,
+               u.description,
+               cast(u.state as char(1)) state,
+               d.value                             state_name,
+               DATE_FORMAT(entry_date, '%Y-%m-%d') entry_date,
+               c.role_ids,
+               c.role_descriptions
+        from sys_user u
+                 left join sys_dictionary d
+                           on d.code = u.state
+                               and d.enable = 1
+                 left join (select sru.user_id,
+                                   group_concat(sru.role_id)    role_ids,
+                                   group_concat(sr.description) role_descriptions
+                            from sys_role_user sru
+                                     left join sys_role sr on sru.role_id = sr.role_id
+                            group by sru.user_id) c
+                           on c.user_id = u.user_id
+    </select>
+
+    <select id="getRoleUser" resultType="java.util.Map">
+        select sru.user_id, group_concat(sru.role_id), group_concat(sr.description)
+        from sys_role_user sru
+                 left join sys_role sr on sru.role_id = sr.role_id
+        group by sru.user_id
     </select>
 
 </mapper>

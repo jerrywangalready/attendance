@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.overtime.mapper.OvertimeMapper">
+
+    <insert id="saveOvertime">
+        insert into atd_overtime (username,
+                                  overtime_date,
+                                  reason,
+                                  approve_state)
+        values (#{username},
+                STR_TO_DATE(#{overtimeDate}, '%Y-%m-%d'),
+                #{reason},
+                1)
+    </insert>
+</mapper>

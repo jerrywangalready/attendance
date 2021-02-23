@@ -2,6 +2,7 @@ package com.newness.efficient.attendance.user.service;
 
 import com.newness.efficient.attendance.user.bo.Group;
 import com.newness.efficient.attendance.user.bo.Member;
+import com.newness.efficient.attendance.user.bo.Personnel;
 import com.newness.efficient.attendance.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<Map<String, String>> getUsers(String query) {
+    public List<Personnel> getUsers(String query) {
         return userMapper.getUsers(query);
     }
 
@@ -67,6 +68,11 @@ public class UserServiceImpl implements UserService {
             groups.add(value);
         });
         return groups;
+    }
+
+    @Override
+    public List<Map<String, String>> getUsersGrid(Map<String, String> param) {
+        return userMapper.getUsersGrid(param);
     }
 
     private void addMembers(Group group) {

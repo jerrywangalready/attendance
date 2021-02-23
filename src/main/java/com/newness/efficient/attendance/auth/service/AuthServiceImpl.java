@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -19,13 +20,21 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public int addUser(Map<String, String> signupInfo) {
-        return authMapper.addUser(signupInfo);
+    public String addUser(Map<String, String> signupInfo) {
+        String userId = UUID.randomUUID().toString().replace("-", "");
+        signupInfo.put("userId", userId);
+        authMapper.addUser(signupInfo);
+        return userId;
     }
 
     @Override
     public String getPassword(String username) {
         return authMapper.getPassword(username);
+    }
+
+    @Override
+    public void joinInRoleUser(String userId) {
+        authMapper.joinInRoleUser(userId);
     }
 
 

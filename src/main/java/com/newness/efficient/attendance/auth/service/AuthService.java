@@ -8,8 +8,9 @@ public interface AuthService {
 
     User getUserInfoByUsername(String username);
 
-    int addUser(Map<String, String> signupInfo);
+    String addUser(Map<String, String> signupInfo);
 
     String getPassword(String username);
 
+    void joinInRoleUser(String userId);
 }

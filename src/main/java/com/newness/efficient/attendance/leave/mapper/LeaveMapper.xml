@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.leave.mapper.LeaveMapper">
+
+    <insert id="saveLeave">
+        insert into atd_leave (username, leave_type, start_date, end_date, reason, approve_state)
+        values (#{username}, #{leaveType}, STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s'),
+                STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s'), #{reason}, 1)
+    </insert>
+</mapper>
