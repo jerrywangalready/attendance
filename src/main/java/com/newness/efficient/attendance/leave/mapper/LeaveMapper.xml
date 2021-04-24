@@ -7,4 +7,27 @@
         values (#{username}, #{leaveType}, STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s'),
                 STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s'), #{reason}, 1)
     </insert>
+
+    <select id="getLeaveInfo" resultType="java.util.Map">
+        select leave_id,
+               username,
+               leave_type,
+               date_format(start_date, '%Y-%m-%d %H:%i:%s') start_date,
+               date_format(end_date,'%Y-%m-%d %H:%i:%s') end_date,
+               reason,
+               approve_state,
+               duration,
+               create_time
+        from atd_leave
+        where approve_state = 1
+            <if test="username != null and username != ''">
+                username = #{username}
+            </if>
+            <if test="date != null and date != ''">
+                #{date} between date_format(start_date, '%Y-%m') and date_format(end_date, '%Y-%m')
+            </if>
+            <if test="yearMonth != null and yearMonth != ''">
+                date_format(start_date, '%Y-%m') &lt;= #{yearMonth} &lt;= date_format(end_date, '%Y-%m')
+            </if>
+    </select>
 </mapper>

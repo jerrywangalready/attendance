@@ -8,6 +8,7 @@ spring:
     username: root
     password: Aa123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
 
 server:
   port: 10927
@@ -16,6 +17,16 @@ mybatis:
   typeAliasesPackage: com.newness.efficient.*.entity
   mapperLocations: classpath:com/newness/efficient/attendance/*/mapper/*.xml
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+#  params: count=countSql
+
+#logging:
+#  config: classpath:log4j2.yml

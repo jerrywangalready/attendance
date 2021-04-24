@@ -1,9 +1,6 @@
 package com.newness.efficient.attendance.auth.controller;
 
-import com.newness.efficient.attendance.auth.service.AuthService;
-import com.newness.efficient.attendance.components.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+//    @Autowired
+//    private AuthService authService;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+//    @Autowired
+//    private JwtTokenUtil jwtTokenUtil;
 
 //    @PostMapping("/login")
 //    public Authentication login(@RequestBody Map<String, String> loginInfo) {

@@ -30,13 +30,13 @@ public class MyOncePerRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    private String header = "Authorization";
+    private final static String TOKEN_NAME = "Authorization";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
-        String headerToken = request.getHeader(header);
+        String headerToken = request.getHeader(TOKEN_NAME);
         System.out.println("headerToken = " + headerToken);
         System.out.println("request getMethod = " + request.getMethod());
 

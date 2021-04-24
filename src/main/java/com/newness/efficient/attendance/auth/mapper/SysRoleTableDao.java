@@ -1,9 +1,9 @@
 package com.newness.efficient.attendance.auth.mapper;
 
 import com.newness.efficient.attendance.auth.po.SysRoleAndPermissionVo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author 小明哥
  * @since 2020-03-07 14:31:50
  */
-@Repository
+@Mapper
 public interface SysRoleTableDao {
 
     @Select("SELECT b.role_name\n" +

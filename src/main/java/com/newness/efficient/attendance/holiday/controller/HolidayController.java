@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,11 @@ public class HolidayController {
     public boolean initHolidaysByYear(@RequestBody int year) {
         holidayService.initHolidaysByYear(year);
         return true;
+    }
+
+    @PostMapping("/test")
+    public void forwardTest(HttpServletResponse response) throws IOException {
+        response.sendRedirect("/holiday/getHolidaysByYear");
     }
 
     @PostMapping("/getHolidaysByYear")
@@ -50,6 +57,7 @@ public class HolidayController {
             nextMonth.put("year", String.valueOf(Integer.parseInt(date.get("year")) + 1));
             nextMonth.put("month", "01");
         } else {
+            // TODO
             Map<String, String> map = new HashMap<>();
             nextMonth.put("year", date.get("year"));
             nextMonth.put("month", String.valueOf(Integer.parseInt(date.get("month")) + 1));

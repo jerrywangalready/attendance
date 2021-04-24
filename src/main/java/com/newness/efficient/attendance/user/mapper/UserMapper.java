@@ -1,30 +1,24 @@
 package com.newness.efficient.attendance.user.mapper;
 
-import com.newness.efficient.attendance.user.bo.Group;
 import com.newness.efficient.attendance.user.bo.Personnel;
-import org.apache.ibatis.annotations.Delete;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
+@Mapper
 public interface UserMapper {
 
-    List<Personnel> getUsers(String query);
+    /**
+     * 获取人员信息
+     *
+     * @param param 查询项
+     * @return
+     */
+    List<Personnel> getUsers(Map<String, String> param);
 
     List<Map<String, String>> getUsersGrid(Map<String, String> param);
 
-    List<Map<String, String>> getGroupsNMembers();
-
-    int addGroup(Group group);
-
-    int updateGroup(Group group);
-
-    void addMember(Map<String, String> map);
-
-    @Delete("delete from sys_group_user where group_id = #{groupId}")
-    void clearMember(String groupId);
-
     List<Map<String, String>> getRoleUser();
+
 }

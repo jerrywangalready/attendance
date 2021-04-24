@@ -74,8 +74,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         //第3步：请求权限配置
         //放行注册API请求，其它任何请求都必须经过身份验证.
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/signup/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/user/getBasicInfo").authenticated()
+                .antMatchers(HttpMethod.POST, "/signup/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/user/getBasicInfo").authenticated()
 //                .antMatchers(HttpMethod.POST,"/user/register").permitAll()
                 //ROLE_ADMIN可以操作任何事情
                 //.antMatchers("/**").hasRole("ADMIN")
@@ -96,7 +96,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 
         //第4步：拦截账号、密码。覆盖 UsernamePasswordAuthenticationFilter过滤器
-        http.addFilterAt(myUsernamePasswordAuthenticationFilter() , UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAt(myUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         //第5步：拦截token，并检测。在 UsernamePasswordAuthenticationFilter 之前添加 JwtAuthenticationTokenFilter
         http.addFilterBefore(myOncePerRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -113,6 +113,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     /**
      * 手动注册账号、密码拦截器
+     *
      * @return
      * @throws Exception
      */

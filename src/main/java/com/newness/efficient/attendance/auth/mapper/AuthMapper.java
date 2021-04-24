@@ -2,12 +2,12 @@ package com.newness.efficient.attendance.auth.mapper;
 
 import com.newness.efficient.attendance.auth.po.User;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
-@Repository
+@Mapper
 public interface AuthMapper {
 
     @Select("select user_id, user_name, full_name from sys_user where user_name = #{username}")

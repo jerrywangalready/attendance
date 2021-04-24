@@ -22,7 +22,8 @@
     </delete>
     <select id="getHolidaysByYear" resultType="java.util.Map">
         select concat(h_year, '-', h_month, '-', h_day) 'holiday', during
-        from atd_holidays where
+        from atd_holidays
+        where
         <foreach collection="dates" item="date" separator="or">
             h_year = #{date.year} and CONVERT(h_month, SIGNED) = CONVERT(#{date.month},SIGNED)
         </foreach>

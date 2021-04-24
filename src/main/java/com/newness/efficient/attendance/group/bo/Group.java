@@ -1,5 +1,6 @@
-package com.newness.efficient.attendance.user.bo;
+package com.newness.efficient.attendance.group.bo;
 
+import com.newness.efficient.attendance.user.bo.Member;
 import lombok.Data;
 
 import java.util.List;

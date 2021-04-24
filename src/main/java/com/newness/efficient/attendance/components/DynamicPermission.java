@@ -3,6 +3,7 @@ package com.newness.efficient.attendance.components;
 import com.newness.efficient.attendance.auth.entity.SysBackendApiTable;
 import com.newness.efficient.attendance.auth.service.SysBackendApiTableService;
 import com.newness.efficient.attendance.configuration.auth.MyAccessDeniedException;
+import com.newness.efficient.attendance.configuration.auth.MyAuthenticationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -79,7 +80,7 @@ public class DynamicPermission {
             }
 
         } else {
-            throw new MyAccessDeniedException("不是UserDetails类型！");
+            throw new MyAuthenticationException("不是UserDetails类型！");
         }
     }
 }

@@ -23,6 +23,7 @@ public class MyAuthenticationEntryPoint extends JSONAuthentication implements Au
 
 //        R<String> data = R.failed("访问此资源需要完全身份验证（"+authException.getMessage()+"）！");
         Map<String, String> map = new HashMap<>();
+        map.put("code", "401");
         map.put("message", "访问此资源需要完全身份验证（" + authException.getMessage() + "）！");
         //输出
         this.WriteJSON(request, response, map);

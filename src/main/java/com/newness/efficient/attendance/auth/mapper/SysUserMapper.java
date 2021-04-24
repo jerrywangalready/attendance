@@ -1,9 +1,9 @@
 package com.newness.efficient.attendance.auth.mapper;
 
 import com.newness.efficient.attendance.auth.entity.SysUserEntity;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
-@Repository
+@Mapper
 public interface SysUserMapper {
 
     SysUserEntity getUserByUsernameNState(String username, int state);

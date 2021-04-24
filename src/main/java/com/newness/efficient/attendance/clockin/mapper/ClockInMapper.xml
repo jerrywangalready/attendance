@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.clockin.mapper.ClockInMapper">
+
+    <!--批量导入excel-->
+    <insert id="insertBatch">
+        INSERT INTO atd_clock_in_records (
+            hr_code,
+            full_name,
+            clock_in_date,
+            day_of_week,
+            clock_in_info,
+            create_time,
+            analyzed
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.hrCode, jdbcType=VARCHAR},
+            #{item.fullName, jdbcType=VARCHAR},
+            STR_TO_DATE(#{item.clockInDate, jdbcType=VARCHAR}, '%Y-%m-%d'),
+            #{item.dayOfWeek, jdbcType=VARCHAR},
+            #{item.clockInInfo, jdbcType=VARCHAR},
+            now(),
+            0
+            )
+        </foreach>
+    </insert>
+
+    <select id="getClockInRecords" resultType="java.util.Map">
+        select cast(clock_in_id as char(1)) clock_in_id,
+               hr_code,
+               user_name,
+               su.full_name,
+               DATE_FORMAT(clock_in_date,'%Y-%m-%d') clock_in_date,
+               day_of_week,
+               clock_in_info,
+               DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') create_time,
+               cast(unusual as char(1)) unusual,
+               sd.value unusual_name,
+               analyzed
+        from atd_clock_in_records acir
+            left join sys_user su
+              on su.full_name = acir.full_name
+            left join sys_dictionary sd
+              on sd.code = acir.unusual
+                 and sd.enable = 1
+                 and sd.type = 'unusual_state'
+        <where>
+            <if test="analyzed != null and analyzed != ''">
+                and acir.analyzed = #{analyzed}
+            </if>
+        </where>
+        order by acir.clock_in_date desc
+    </select>
+
+    <select id="getDateByUnAnalyzed" resultType="java.util.HashMap">
+        select DATE_FORMAT(clock_in_date, '%Y') 'year',
+               DATE_FORMAT(clock_in_date, '%m') 'month'
+        from atd_clock_in_records
+        where analyzed = 0
+    </select>
+
+    <select id="getClockInInfoByDate" resultType="java.util.Map">
+        select su.user_name, clock_in_info
+        from atd_clock_in_records acir
+             left join sys_user su
+               on su.full_name = acir.full_name
+        where DATE_FORMAT(clock_in_date, '%Y-%m-%d') = #{date}
+    </select>
+
+
+</mapper>
