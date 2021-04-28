@@ -10,10 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,9 +38,6 @@ public class UserController {
         return list == null ? new ArrayList<>() : list;
     }
 
-
-
-
     @PostMapping("/getUsersGrid")
     public PageInfo<Map<String, String>> getUsersGrid(@RequestBody Map<String, String> param) {
         PageHelper.startPage(param);
@@ -61,5 +55,10 @@ public class UserController {
             map.put("fullName", users.get(0).getFullName());
         }
         return map;
+    }
+
+    @PostMapping("/getUsersByRole")
+    public List<String> getUsersByRole(@RequestBody Map<String, String> param) {
+        return userService.getUsersByRole(param.get("role"));
     }
 }

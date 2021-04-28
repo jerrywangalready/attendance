@@ -34,4 +34,18 @@ public class RoleServiceImpl implements RoleService{
     public void deleteRole(String roleId) {
         roleMapper.delete(roleId);
     }
+
+    @Override
+    public int clearUsersByRole(String roleName) {
+        return roleMapper.clearUsersByRole(roleName);
+    }
+
+    @Override
+    public void joinInRoleUser(String roleName, String[] userName) {
+        for (String u : userName) {
+            roleMapper.joinInRoleUser(roleName, u);
+        }
+    }
+
+
 }

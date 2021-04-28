@@ -26,9 +26,9 @@
              sys_role_user e
         WHERE a.backend_api_id = c.backend_api_id
           AND a.backend_api_url != 'none'
-          AND b.role_id = c.role_id
-          AND d.user_id = e.user_id
-          AND e.role_id = c.role_id
+          AND b.role_name = c.role_name
+          AND d.user_name = e.user_name
+          AND e.role_name = c.role_name
           AND d.user_name = #{username}
     </select>
 </mapper>

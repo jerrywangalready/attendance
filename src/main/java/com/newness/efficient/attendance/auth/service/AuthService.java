@@ -12,5 +12,5 @@ public interface AuthService {
 
     String getPassword(String username);
 
-    void joinInRoleUser(String userId);
+    void joinInRoleUser(String userName);
 }

@@ -11,4 +11,8 @@ public interface RoleService {
     void saveRole(RoleEntity roleEntity);
 
     void deleteRole(String roleId);
+
+    int clearUsersByRole(String roleName);
+
+    void joinInRoleUser(String roleName, String[] userName);
 }

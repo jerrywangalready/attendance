@@ -18,33 +18,41 @@
 
     <select id="getUsersGrid" resultType="java.util.Map">
         select u.user_id,
-               user_name,
+               u.user_name,
                full_name,
                u.description,
                cast(u.state as char(1)) state,
                d.value                             state_name,
                DATE_FORMAT(entry_date, '%Y-%m-%d') entry_date,
-               c.role_ids,
+               c.role_names,
                c.role_descriptions
         from sys_user u
                  left join sys_dictionary d
                            on d.code = u.state
                                and d.enable = 1
                                and d.type = 'staff_state'
-                 left join (select sru.user_id,
-                                   group_concat(sru.role_id)    role_ids,
+                 left join (select sru.user_name,
+                                   group_concat(sru.role_name)    role_names,
                                    group_concat(sr.description) role_descriptions
                             from sys_role_user sru
-                                     left join sys_role sr on sru.role_id = sr.role_id
-                            group by sru.user_id) c
-                           on c.user_id = u.user_id
+                                     left join sys_role sr on sru.role_name = sr.role_name
+                            group by sru.user_name) c
+                           on c.user_name = u.user_name
     </select>
 
     <select id="getRoleUser" resultType="java.util.Map">
-        select sru.user_id, group_concat(sru.role_id), group_concat(sr.description)
+        select sru.user_name, group_concat(sru.role_name), group_concat(sr.description)
         from sys_role_user sru
-                 left join sys_role sr on sru.role_id = sr.role_id
-        group by sru.user_id
+                 left join sys_role sr on sru.role_name = sr.role_name
+        group by sru.user_name
+    </select>
+    <select id="getUsersByRole" resultType="java.lang.String">
+        select su.user_name
+        from sys_user su
+                 left join sys_role_user sru
+                           on su.user_name = sru.user_name
+                 left join sys_role sr on sru.role_name = sr.role_name
+        where sr.role_name = #{role}
     </select>
 
 </mapper>

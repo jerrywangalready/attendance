@@ -20,8 +20,8 @@ public interface SysRoleTableDao {
             "from sys_user a,\n" +
             "\t sys_role b,\n" +
             "     sys_role_user c\n" +
-            "where a.user_id = c.user_id\n" +
-            "     and b.role_id = c.role_id\n" +
+            "where a.user_name = c.user_name\n" +
+            "     and b.role_name = c.role_name\n" +
             "     and a.state = 1\n"+
             "     and a.user_name=#{userName}")
     List<String> getRolesByUserName(@Param("userName") String userName);
@@ -39,7 +39,7 @@ public interface SysRoleTableDao {
             "    FROM\n" +
             "        sys_user a\n" +
             "    JOIN (sys_role b\n" +
-            "    JOIN sys_role_user c ON c.role_id = b.role_id) ON c.user_id = a.user_id\n" +
+            "    JOIN sys_role_user c ON c.role_name = b.role_name) ON c.user_name = a.user_name\n" +
             "    WHERE\n" +
             "        b.role_id = #{roleId}) t2 ON t2.user_id = t1.user_id")
     /**

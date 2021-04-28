@@ -2,6 +2,7 @@ package com.newness.efficient.attendance.role.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.newness.efficient.attendance.role.bo.RoleUsers;
 import com.newness.efficient.attendance.role.entity.RoleEntity;
 import com.newness.efficient.attendance.role.service.RoleService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,13 @@ public class RoleController {
 
     public boolean checkRoleBeUsed(String roleId) {
 
+        return true;
+    }
+
+    @PostMapping("/joinInRoleUser")
+    public boolean joinInRoleUser(@RequestBody RoleUsers roleUsers) {
+        roleService.clearUsersByRole(roleUsers.getRoleName());
+        roleService.joinInRoleUser(roleUsers.getRoleName(), roleUsers.getUserNames());
         return true;
     }
 

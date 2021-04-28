@@ -19,6 +19,9 @@
         from sys_role
         where role_id = #{roleId}
     </delete>
+    <delete id="clearUsersByRole">
+        delete from sys_role_user where role_name = #{roleName}
+    </delete>
 
     <select id="getRole" resultType="java.util.Map">
         select *

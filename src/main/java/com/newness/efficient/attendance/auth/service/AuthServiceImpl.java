@@ -33,8 +33,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void joinInRoleUser(String userId) {
-        authMapper.joinInRoleUser(userId);
+    public void joinInRoleUser(String userName) {
+        authMapper.joinInRoleUser(userName);
     }
 
 

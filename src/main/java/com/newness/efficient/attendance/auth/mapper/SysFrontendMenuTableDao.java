@@ -47,8 +47,8 @@ public interface SysFrontendMenuTableDao {
             "     sys_role_user e\n" +
             "where ( a.frontend_menu_id = c.frontend_menu_id or c.frontend_menu_id='*')\n" +
             "\t and b.role_id = c.role_id\n" +
-            "     and d.user_id = e.user_id\n" +
-            "     and e.role_id = c.role_id\n" +
+            "     and d.user_name = e.user_name\n" +
+            "     and e.role_name = c.role_name\n" +
             "     and d.user_name=#{username}\n" +
             "order by a.frontend_menu_sort asc")
     /**

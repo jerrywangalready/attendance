@@ -28,5 +28,7 @@ pagehelper:
   supportMethodsArguments: true
 #  params: count=countSql
 
-#logging:
+logging:
+  level:
+    com.newness.efficient.attendance: debug
 #  config: classpath:log4j2.yml

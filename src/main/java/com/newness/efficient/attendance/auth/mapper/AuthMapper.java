@@ -21,6 +21,6 @@ public interface AuthMapper {
     @Select("select pass_word from sys_user where user_name = #{username}")
     String getPassword(String username);
 
-    @Insert("insert into sys_role_user (role_id,user_id) values ('0',#{userId})")
-    void joinInRoleUser(String userId);
+    @Insert("insert into sys_role_user (role_name,user_name) values ('ADMIN',#{userName})")
+    void joinInRoleUser(String userName);
 }
