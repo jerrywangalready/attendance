@@ -46,8 +46,8 @@
                  left join sys_role sr on sru.role_name = sr.role_name
         group by sru.user_name
     </select>
-    <select id="getUsersByRole" resultType="java.lang.String">
-        select su.user_name
+    <select id="getUsersByRole" resultType="java.util.Map">
+        select su.user_name, su.full_name
         from sys_user su
                  left join sys_role_user sru
                            on su.user_name = sru.user_name

@@ -1,22 +1,28 @@
 package com.newness.efficient.attendance.leave.service;
 
 import com.newness.efficient.attendance.leave.bo.LeaveForm;
+import com.newness.efficient.attendance.leave.entity.LeaveProcess;
+import com.newness.efficient.attendance.leave.entity.LeaveRecord;
 import com.newness.efficient.attendance.leave.mapper.LeaveMapper;
 import com.newness.efficient.attendance.utils.DateUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.newness.efficient.attendance.utils.IdCreator;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 @Service
 public class LeaveServiceImpl implements LeaveService {
 
-    @Autowired
+    @Resource
     private LeaveMapper leaveMapper;
 
     @Override
-    public boolean saveLeave(LeaveForm param) {
-        return leaveMapper.saveLeave(param);
+    public String saveLeave(LeaveForm param) {
+        String leaveId = IdCreator.getId();
+        param.setLeaveId(leaveId);
+        leaveMapper.saveLeave(param);
+        return leaveId;
     }
 
     /**
@@ -84,4 +90,23 @@ public class LeaveServiceImpl implements LeaveService {
                         && day.get(Calendar.DAY_OF_MONTH) < compareDay.get(Calendar.DAY_OF_MONTH);
     }
 
+    @Override
+    public void addLeaveRecord(LeaveRecord leaveRecord) {
+        leaveMapper.addLeaveRecord(leaveRecord);
+    }
+
+    @Override
+    public void saveLeaveProcess(LeaveProcess leaveProcess) {
+        if (leaveProcess.isProcessIdBlank()) {
+            leaveProcess.setProcessId(IdCreator.getId());
+            leaveMapper.addProcess(leaveProcess);
+        } else {
+            leaveMapper.updateProcess(leaveProcess);
+        }
+    }
+
+    public static void main(String[] args) {
+        LeaveProcess leaveProcess = new LeaveProcess();
+        System.out.println(leaveProcess.getProcessId());
+    }
 }

@@ -21,5 +21,5 @@ public interface UserMapper {
 
     List<Map<String, String>> getRoleUser();
 
-    List<String> getUsersByRole(String role);
+    List<Map<String, String>> getUsersByRole(String role);
 }

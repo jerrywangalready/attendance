@@ -11,5 +11,5 @@ public interface UserService {
 
     List<Map<String, String>> getUsersGrid(Map<String, String> param);
 
-    List<String> getUsersByRole(String role);
+    List<Map<String, String>> getUsersByRole(String role);
 }

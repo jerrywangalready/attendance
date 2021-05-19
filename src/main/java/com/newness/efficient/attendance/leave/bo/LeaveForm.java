@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class LeaveForm {
 
+    private String leaveId;
+
     private String username;
 
     private String leaveType;
@@ -15,5 +17,7 @@ public class LeaveForm {
 
     private String reason;
 
-    private Integer duration;
+    private Float duration;
+
+    private String approver;
 }

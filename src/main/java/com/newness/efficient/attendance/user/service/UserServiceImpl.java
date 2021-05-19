@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> getUsersByRole(String role) {
+    public List<Map<String, String>> getUsersByRole(String role) {
         return userMapper.getUsersByRole(role);
     }
 

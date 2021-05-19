@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @PostMapping("/getUsersByRole")
-    public List<String> getUsersByRole(@RequestBody Map<String, String> param) {
+    public List<Map<String, String>> getUsersByRole(@RequestBody Map<String, String> param) {
         return userService.getUsersByRole(param.get("role"));
     }
 }

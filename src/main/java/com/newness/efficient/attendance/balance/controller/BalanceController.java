@@ -1,5 +1,6 @@
 package com.newness.efficient.attendance.balance.controller;
 
+import com.newness.efficient.attendance.balance.bo.Balance;
 import com.newness.efficient.attendance.balance.service.BalanceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +21,11 @@ public class BalanceController {
     @RequestMapping("/getTotaledBalance")
     public Float getTotaledBalance(@AuthenticationPrincipal UserDetails user){
         return balanceService.getTotaledBalance(user.getUsername());
+    }
+
+    @RequestMapping("/getBalance")
+    public Balance getBalance(@AuthenticationPrincipal UserDetails user) {
+        return balanceService.getBalances(user.getUsername());
     }
 
 }

@@ -38,6 +38,11 @@ public class DateUtil {
         return SDF.format(calendar.getTime());
     }
 
+    public static String CalendarToString(Calendar calendar, String format) {
+        SimpleDateFormat newFDF = new SimpleDateFormat(format);
+        return newFDF.format(calendar.getTime());
+    }
+
     public static Date parseDate(String strDate) {
         Date date = null;
         try {

@@ -40,13 +40,13 @@ public class MyAuthenticationSuccessHandler extends JSONAuthentication implement
         //只要token还在过期内，不需要每次重新生成
         //先去缓存中找
         String token = TokenCache.getTokenFromCache(userDetails.getUsername());
-        if (token == null) {
+//        if (token == null) {
             //如果token为空，则去创建一个新的token
             jwtTokenUtil = new JwtTokenUtil();
             token = jwtTokenUtil.generateToken(userDetails);
             //把新的token存储到缓存中
             TokenCache.setToken(userDetails.getUsername(), token);
-        }
+//        }
 
         //加载前端菜单
         List<SysFrontendMenuTable> menus = service.getMenusByUserName(userDetails.getUsername());
