@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 /**
  * 陪产假
  */
-@Service("marriage")
+@Service("paternityLeave")
 public class PaternityLeaveComputer extends BasicComputer implements Computer {
 
     @Resource

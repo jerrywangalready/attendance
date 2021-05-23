@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 /**
  * 工伤假
  */
-@Service("shift")
+@Service("workInjuryLeave")
 public class WorkInjuryLeaveComputer extends BasicComputer implements Computer {
 
     @Resource
