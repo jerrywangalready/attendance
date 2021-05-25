@@ -17,4 +17,9 @@ public class ApiManageServiceImpl implements ApiManageService {
     public List<Map<String, String>> getApiInfo(Map<String, String> param) {
         return apiManageMapper.getApiInfo(param);
     }
+
+    @Override
+    public int deleteApiInfo(String backendApiId) {
+        return apiManageMapper.deleteApiInfo(backendApiId);
+    }
 }

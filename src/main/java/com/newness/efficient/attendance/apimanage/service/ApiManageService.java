@@ -7,4 +7,5 @@ public interface ApiManageService {
 
     List<Map<String, String>> getApiInfo(Map<String, String> param);
 
+    int deleteApiInfo(String backendApiId);
 }

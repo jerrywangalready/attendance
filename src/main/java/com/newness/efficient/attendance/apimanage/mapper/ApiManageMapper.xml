@@ -2,9 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.newness.efficient.attendance.apimanage.mapper.ApiManageMapper">
 
+    <delete id="deleteApiInfo">
+        delete
+        from sys_backend_api
+        where backend_api_id = #{backendApiId}
+    </delete>
+
 
     <select id="getApiInfo" resultType="java.util.Map">
         select *
         from sys_backend_api
     </select>
+
+
 </mapper>

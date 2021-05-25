@@ -8,4 +8,6 @@ import java.util.Map;
 @Mapper
 public interface ApiManageMapper {
     List<Map<String, String>> getApiInfo(Map<String, String> param);
+
+    int deleteApiInfo(String backendApiId);
 }

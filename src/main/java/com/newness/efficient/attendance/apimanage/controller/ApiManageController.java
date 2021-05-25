@@ -25,4 +25,9 @@ public class ApiManageController {
         List<Map<String, String>> list = apiManageService.getApiInfo(param);
         return new PageInfo<>(list);
     }
+
+    @PostMapping("/deleteApiInfo")
+    public int deleteApiInfo(String backendApiId) {
+        return apiManageService.deleteApiInfo(backendApiId);
+    }
 }
