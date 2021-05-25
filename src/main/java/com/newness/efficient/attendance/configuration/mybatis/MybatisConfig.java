@@ -1,4 +1,4 @@
-package com.newness.efficient.attendance.config;
+package com.newness.efficient.attendance.configuration.mybatis;
 
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.wrapper.MapWrapper;
