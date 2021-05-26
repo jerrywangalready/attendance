@@ -2,17 +2,126 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.newness.efficient.attendance.apimanage.mapper.ApiManageMapper">
 
-    <delete id="deleteApiInfo">
-        delete
-        from sys_backend_api
-        where backend_api_id = #{backendApiId}
-    </delete>
-
-
     <select id="getApiInfo" resultType="java.util.Map">
         select *
         from sys_backend_api
     </select>
 
-
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+            resultType="com.newness.efficient.attendance.apimanage.entity.SysBackendApi">
+        select backend_api_id,
+               backend_api_name,
+               backend_api_url,
+               backend_api_method,
+               pid,
+               backend_api_sort,
+               description,
+               module_id
+        from sys_backend_api
+        where backend_api_id = #{backendApiId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from sys_backend_api
+        where backend_api_id = #{backendApiId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" keyColumn="backend_api_id" keyProperty="backendApiId"
+            parameterType="com.newness.efficient.attendance.apimanage.entity.SysBackendApi" useGeneratedKeys="true">
+        insert into sys_backend_api (backend_api_name, backend_api_url, backend_api_method,
+                                     pid, backend_api_sort, description,
+                                     module_id)
+        values (#{backendApiName,jdbcType=VARCHAR}, #{backendApiUrl,jdbcType=VARCHAR},
+                #{backendApiMethod,jdbcType=VARCHAR},
+                #{pid,jdbcType=VARCHAR}, #{backendApiSort,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR},
+                #{moduleId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="backend_api_id" keyProperty="backendApiId"
+            parameterType="com.newness.efficient.attendance.apimanage.entity.SysBackendApi" useGeneratedKeys="true">
+        insert into sys_backend_api
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="backendApiName != null">
+                backend_api_name,
+            </if>
+            <if test="backendApiUrl != null">
+                backend_api_url,
+            </if>
+            <if test="backendApiMethod != null">
+                backend_api_method,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="backendApiSort != null">
+                backend_api_sort,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="moduleId != null">
+                module_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="backendApiName != null">
+                #{backendApiName,jdbcType=VARCHAR},
+            </if>
+            <if test="backendApiUrl != null">
+                #{backendApiUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="backendApiMethod != null">
+                #{backendApiMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="backendApiSort != null">
+                #{backendApiSort,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="moduleId != null">
+                #{moduleId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.newness.efficient.attendance.apimanage.entity.SysBackendApi">
+        update sys_backend_api
+        <set>
+            <if test="backendApiName != null">
+                backend_api_name = #{backendApiName,jdbcType=VARCHAR},
+            </if>
+            <if test="backendApiUrl != null">
+                backend_api_url = #{backendApiUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="backendApiMethod != null">
+                backend_api_method = #{backendApiMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="backendApiSort != null">
+                backend_api_sort = #{backendApiSort,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="moduleId != null">
+                module_id = #{moduleId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where backend_api_id = #{backendApiId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.newness.efficient.attendance.apimanage.entity.SysBackendApi">
+        update sys_backend_api
+        set backend_api_name   = #{backendApiName,jdbcType=VARCHAR},
+            backend_api_url    = #{backendApiUrl,jdbcType=VARCHAR},
+            backend_api_method = #{backendApiMethod,jdbcType=VARCHAR},
+            pid                = #{pid,jdbcType=VARCHAR},
+            backend_api_sort   = #{backendApiSort,jdbcType=INTEGER},
+            description        = #{description,jdbcType=VARCHAR},
+            module_id          = #{moduleId,jdbcType=VARCHAR}
+        where backend_api_id = #{backendApiId,jdbcType=VARCHAR}
+    </update>
 </mapper>

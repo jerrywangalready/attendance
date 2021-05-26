@@ -1,6 +1,8 @@
 package com.newness.efficient.attendance.apimanage.service;
 
+import com.newness.efficient.attendance.apimanage.entity.SysBackendApi;
 import com.newness.efficient.attendance.apimanage.mapper.ApiManageMapper;
+import com.newness.efficient.attendance.utils.IdCreator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,6 +22,16 @@ public class ApiManageServiceImpl implements ApiManageService {
 
     @Override
     public int deleteApiInfo(String backendApiId) {
-        return apiManageMapper.deleteApiInfo(backendApiId);
+        return apiManageMapper.deleteByPrimaryKey(backendApiId);
+    }
+
+    @Override
+    public void saveApiInfo(SysBackendApi sysBackendApi) {
+        if (sysBackendApi.isBackendApiIdBlank()) {
+            sysBackendApi.setBackendApiId(IdCreator.getId());
+            apiManageMapper.insert(sysBackendApi);
+        } else {
+            apiManageMapper.updateByPrimaryKey(sysBackendApi);
+        }
     }
 }
