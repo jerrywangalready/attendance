@@ -11,5 +11,7 @@ public interface ApiManageService {
 
     int deleteApiInfo(String backendApiId);
 
-    void saveApiInfo(SysBackendApi sysBackendApi);
+    boolean saveApiInfo(SysBackendApi sysBackendApi);
+
+    SysBackendApi getBackendApiById(String backendApiId);
 }
