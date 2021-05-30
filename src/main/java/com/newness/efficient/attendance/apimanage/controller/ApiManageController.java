@@ -4,10 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newness.efficient.attendance.apimanage.entity.SysBackendApi;
 import com.newness.efficient.attendance.apimanage.service.ApiManageService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -27,11 +24,9 @@ public class ApiManageController {
         return new PageInfo<>(list);
     }
 
-
-
     @PostMapping("/deleteApiInfo")
-    public int deleteApiInfo(String backendApiId) {
-        return apiManageService.deleteApiInfo(backendApiId);
+    public int deleteApiInfo(@RequestBody SysBackendApi sysBackendApi) {
+        return apiManageService.deleteApiInfo(sysBackendApi.getBackendApiId());
     }
 
     @PostMapping("/saveApiInfo")
@@ -43,4 +38,5 @@ public class ApiManageController {
     public SysBackendApi getBackendApiById(String backendApiId) {
         return apiManageService.getBackendApiById(backendApiId);
     }
+
 }

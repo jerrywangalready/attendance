@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +27,11 @@ public class ModuleController {
         PageHelper.startPage(param);
         List<Map<String, String>> list = moduleService.getModuleGrid(param);
         return new PageInfo<>(list);
+    }
+
+    @PostMapping("/getModuleList")
+    public List<Map<String, String>> getModuleList() {
+        Map<String, String> param = new HashMap<>();
+        return moduleService.getModuleGrid(param);
     }
 }
