@@ -27,7 +27,8 @@ public class ApiManageServiceImpl implements ApiManageService {
 
     @Override
     public boolean saveApiInfo(SysBackendApi sysBackendApi) {
-        int result = 0;
+        int result;
+        sysBackendApi.setBackendApiSort(0);
         if (sysBackendApi.isBackendApiIdBlank()) {
             sysBackendApi.setBackendApiId(IdCreator.getId());
             result = apiManageMapper.insert(sysBackendApi);

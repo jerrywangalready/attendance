@@ -3,8 +3,9 @@
 <mapper namespace="com.newness.efficient.attendance.apimanage.mapper.ApiManageMapper">
 
     <select id="getApiInfo" resultType="java.util.Map">
-        select *
-        from sys_backend_api
+        select sba.*,sm.module_name
+        from sys_backend_api sba
+                 left join sys_module sm on sba.module_id = sm.module_id
     </select>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.String"
@@ -27,12 +28,21 @@
     </delete>
     <insert id="insert" keyColumn="backend_api_id" keyProperty="backendApiId"
             parameterType="com.newness.efficient.attendance.apimanage.entity.SysBackendApi" useGeneratedKeys="true">
-        insert into sys_backend_api (backend_api_name, backend_api_url, backend_api_method,
-                                     pid, backend_api_sort, description,
+        insert into sys_backend_api (backend_api_id,
+                                     backend_api_name,
+                                     backend_api_url,
+                                     backend_api_method,
+                                     pid,
+                                     backend_api_sort,
+                                     description,
                                      module_id)
-        values (#{backendApiName,jdbcType=VARCHAR}, #{backendApiUrl,jdbcType=VARCHAR},
+        values (#{backendApiId,jdbcType=VARCHAR},
+                #{backendApiName,jdbcType=VARCHAR},
+                #{backendApiUrl,jdbcType=VARCHAR},
                 #{backendApiMethod,jdbcType=VARCHAR},
-                #{pid,jdbcType=VARCHAR}, #{backendApiSort,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR},
+                #{pid,jdbcType=VARCHAR},
+                #{backendApiSort,jdbcType=INTEGER},
+                #{description,jdbcType=VARCHAR},
                 #{moduleId,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" keyColumn="backend_api_id" keyProperty="backendApiId"
