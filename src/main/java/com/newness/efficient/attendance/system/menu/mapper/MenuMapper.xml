@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.system.menu.mapper.MenuMapper">
+
+    <insert id="addMenu">
+        insert into sys_menu (menu_name, parent_id, level_num, menu_type)
+        values (#{menuName},
+                #{parentId},
+                #{levelNum},
+                #{menuType})
+    </insert>
+
+    <update id="updateMenu">
+        update sys_menu
+        set menu_name = #{menuName}
+        where menu_id = #{menuId}
+    </update>
+    <delete id="deleteMenu">
+        delete
+        from sys_menu
+        where menu_id =
+              #{menuId}
+    </delete>
+
+    <select id="getMenu" resultType="com.newness.efficient.attendance.system.menu.model.MenuBo">
+        select *
+        from sys_menu
+        order by level_num desc, parent_id, sort
+    </select>
+
+</mapper>

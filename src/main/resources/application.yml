@@ -9,6 +9,16 @@ spring:
     password: Aa123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+#  freemarker:
+#    template-loader-path: classpath:/templates
+#    cache: false
+#    charset: UTF-8
+#    check-template-location: true
+#    content-type: text/html
+#    expose-request-attributes: true
+#    expose-session-attributes: true
+#    request-context-attribute: request
+#    suffix: .ftl
 
 server:
   port: 10927
@@ -17,7 +27,6 @@ mybatis:
   typeAliasesPackage: com.newness.efficient.*.entity
   mapperLocations: classpath:com/newness/efficient/attendance/*/mapper/*.xml
   configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true
@@ -32,3 +41,8 @@ logging:
   level:
     com.newness.efficient.attendance: debug
 #  config: classpath:log4j2.yml
+
+
+
+token:
+  duration: 2 * 60 * 60 * 1000

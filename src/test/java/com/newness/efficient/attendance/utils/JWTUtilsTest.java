@@ -1,13 +1,10 @@
 package com.newness.efficient.attendance.utils;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.newness.efficient.attendance.components.JwtTokenUtil;
+import com.newness.efficient.attendance.system.security.token.JwtTokenUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @SpringBootTest
 class JWTUtilsTest {
@@ -17,9 +14,7 @@ class JWTUtilsTest {
 
     @Test
     void getToken() {
-        Map<String, String> map = new HashMap<>();
-        map.put("name", "lili");
-        String token = jwtTokenUtil.getToken(map);
+        String token = jwtTokenUtil.generateToken("lily");
         System.out.println(token);
 //
 //        Calendar calendar = Calendar.getInstance();

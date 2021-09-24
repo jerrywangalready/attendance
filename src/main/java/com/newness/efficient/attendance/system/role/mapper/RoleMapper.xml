@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.system.role.mapper.RoleMapper">
+
+    <insert id="addRole">
+        insert into sys_role (role_id, role_name, description)
+        values (#{roleId}, #{roleName}, #{description})
+    </insert>
+
+    <update id="updateRole">
+        update sys_role
+        set role_name   = #{roleName},
+            description = #{description}
+        where role_id = #{roleId}
+    </update>
+
+    <delete id="delete">
+        delete
+        from sys_role
+        where role_id = #{roleId}
+    </delete>
+
+    <select id="getRole" resultType="java.util.Map">
+        select *
+        from sys_role
+        <where>
+            <if test="roleName != null and roleName != ''">
+                and role_name = #{roleName}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteRoleUserByRoleId">
+        delete
+        from sys_role_user
+        where role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteRoleMenuByRoleId">
+        delete
+        from sys_role_menu
+        where role_id = #{roleId}
+    </delete>
+
+    <select id="getMenuByRoleId" resultType="java.lang.Integer">
+        select menu_id
+        from sys_role_menu
+        where role_id = #{roleId}
+    </select>
+
+    <select id="getUsernameByRoleId" resultType="java.lang.String">
+        select username
+        from sys_role_user
+        where role_id = #{roleId}
+    </select>
+
+</mapper>

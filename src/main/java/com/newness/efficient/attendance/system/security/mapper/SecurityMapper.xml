@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.system.security.mapper.SecurityMapper">
+
+
+    <select id="getAuthoritiesByUser" resultType="com.newness.efficient.attendance.system.apimanage.entity.SysApiEntity">
+        select sa.*
+        from sys_api sa
+             left join sys_menu_api sma on sma.api_id = sa.api_id
+             left join sys_role_menu sra on sma.menu_id = sra.menu_id
+             left join sys_role_user sru on sra.role_id = sru.role_id
+        where sru.username = #{username}
+    </select>
+
+</mapper>

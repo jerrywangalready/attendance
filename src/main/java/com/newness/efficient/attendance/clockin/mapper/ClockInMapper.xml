@@ -29,7 +29,7 @@
     <select id="getClockInRecords" resultType="java.util.Map">
         select cast(clock_in_id as char(1)) clock_in_id,
                hr_code,
-               user_name,
+               username,
                su.full_name,
                DATE_FORMAT(clock_in_date,'%Y-%m-%d') clock_in_date,
                day_of_week,
@@ -61,7 +61,7 @@
     </select>
 
     <select id="getClockInInfoByDate" resultType="java.util.Map">
-        select su.user_name, clock_in_info
+        select su.username, clock_in_info
         from atd_clock_in_records acir
              left join sys_user su
                on su.full_name = acir.full_name

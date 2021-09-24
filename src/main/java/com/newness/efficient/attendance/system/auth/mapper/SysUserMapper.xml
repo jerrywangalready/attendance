@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.system.auth.mapper.SysUserMapper">
+
+    <insert id="saveUser">
+        insert into sys_user (user_id,
+                                    username,
+                                    password,
+                                    status,
+                                    description)
+        values (#{userId},
+                #{userName},
+                #{passWord},
+                #{state},
+                #{description})
+    </insert>
+
+    <select id="getUserByUsernameNState"
+            resultType="com.newness.efficient.attendance.system.user.model.BaseUser">
+        SELECT user_id,
+               username,
+               full_name,
+               password,
+               status,
+               description
+        FROM sys_user
+        WHERE username = #{username}
+          AND status = #{state}
+    </select>
+</mapper>

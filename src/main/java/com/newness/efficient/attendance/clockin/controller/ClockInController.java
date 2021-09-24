@@ -9,8 +9,8 @@ import com.newness.efficient.attendance.clockin.bo.DayBo;
 import com.newness.efficient.attendance.clockin.listener.ClockInListener;
 import com.newness.efficient.attendance.clockin.service.ClockInService;
 import com.newness.efficient.attendance.leave.service.LeaveService;
-import com.newness.efficient.attendance.user.bo.Personnel;
-import com.newness.efficient.attendance.user.service.UserService;
+import com.newness.efficient.attendance.system.user.bo.Personnel;
+import com.newness.efficient.attendance.system.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -90,9 +90,9 @@ public class ClockInController {
         Map<String, String> offWorkTimeOfLastMonthLastDay = clockInService.getOffWorkTimeOfLastMonthLastDay(year, month);
 
         users.forEach(user -> {
-            String userName = user.getUserName();
-            if (unAnalyzedClockInRecords.containsKey(user.getUserName())) {
-                List<Map<String, String>> records = unAnalyzedClockInRecords.get(user.getUserName());
+            String userName = user.getUsername();
+            if (unAnalyzedClockInRecords.containsKey(user.getUsername())) {
+                List<Map<String, String>> records = unAnalyzedClockInRecords.get(user.getUsername());
                 daysOfMonth.forEach(dayBo -> {
                     for (int i = records.size() - 1; i >= 0; i--) {
                         Map<String, String> rec = records.get(i);

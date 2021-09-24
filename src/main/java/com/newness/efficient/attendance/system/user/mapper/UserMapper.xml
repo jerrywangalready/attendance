@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.system.user.mapper.UserMapper">
+
+    <select id="getUsers" resultType="com.newness.efficient.attendance.system.user.bo.Personnel">
+        select
+            user_id,
+            username,
+            full_name,
+            description,
+            status,
+            DATE_FORMAT(entry_date,'%Y-%m-%d') entry_date,
+            email
+        from sys_user
+        <where>
+            <if test="name != null and name != ''">
+                and instr(username, #{name}) > 0
+                or instr(full_name, #{name}) > 0
+            </if>
+            <if test="status != null and status != ''">
+                and status = ${status}
+            </if>
+        </where>
+    </select>
+
+    <select id="getUsersGrid" resultType="java.util.Map">
+        select u.user_id,
+               u.username,
+               u.full_name,
+               u.description,
+               cast(u.status as char(1))            status,
+               d.value                             state_name,
+               DATE_FORMAT(entry_date, '%Y-%m-%d') entry_date,
+               c.role_id,
+               c.role_descriptions
+        from sys_user u
+                 left join sys_dictionary d
+                           on d.code = u.status
+                               and d.enable = 1
+                               and d.type = 'staff_state'
+                 left join (select sru.username,
+                                   group_concat(sru.role_id)  role_id,
+                                   group_concat(sr.description) role_descriptions
+                            from sys_role_user sru
+                                     left join sys_role sr on sru.role_id = sr.role_id
+                            group by sru.username) c
+                           on c.username = u.username
+    </select>
+
+    <select id="getRoleUser" resultType="java.util.Map">
+        select sru.username, group_concat(sru.role_name), group_concat(sr.description)
+        from sys_role_user sru
+                 left join sys_role sr on sru.role_name = sr.role_name
+        group by sru.username
+    </select>
+    <select id="getUsersByRole" resultType="java.util.Map">
+        select su.username, su.full_name
+        from sys_user su
+                 left join sys_role_user sru
+                           on su.username = sru.username
+                 left join sys_role sr on sru.role_name = sr.role_name
+        where sr.role_name = #{role}
+    </select>
+
+</mapper>

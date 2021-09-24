@@ -2,7 +2,7 @@ package com.newness.efficient.attendance.group.service;
 
 import com.newness.efficient.attendance.group.bo.Group;
 import com.newness.efficient.attendance.group.mapper.GroupMapper;
-import com.newness.efficient.attendance.user.bo.Member;
+import com.newness.efficient.attendance.system.user.bo.Member;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

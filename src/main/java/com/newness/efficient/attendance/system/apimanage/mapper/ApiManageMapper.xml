@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newness.efficient.attendance.system.apimanage.mapper.ApiManageMapper">
+
+    <select id="getApiInfo" resultType="java.util.Map">
+        select sba.*
+        from sys_api sba
+        <where>
+            <if test="apiName != null and apiName != ''">
+                and instr(api_name, #{apiName}) > 0
+            </if>
+            <if test="apiPath != null and apiPath != ''">
+                and instr(api_path, #{apiPath}) > 0
+            </if>
+        </where>
+    </select>
+
+    <insert id="addApiInfo">
+        insert
+        sys_api (api_id, api_name, api_path)
+        values (
+        #{apiId},
+        #{apiName},
+        #{apiPath}
+        )
+    </insert>
+
+    <update id="updateApiInfo">
+        update sys_api
+        set api_name = #{apiName},
+            api_path = #{apiPath}
+        where api_id = #{apiId}
+    </update>
+
+    <delete id="deleteApiById">
+        delete
+        from sys_api
+        where api_id = #{apiId}
+    </delete>
+
+    <insert id="addMenuApi">
+        insert
+        sys_menu_api (menu_id, api_id)
+        values (
+        #{menuId},
+        #{apiId}
+        )
+    </insert>
+
+    <delete id="deleteMenuApi">
+        delete from sys_menu_api
+        <where>
+            <if test="menuId != null and menuId != ''">
+                and menu_id = #{menuId}
+            </if>
+            <if test="apiId !=null and apiId != ''">
+                and api_id = #{apiId}
+            </if>
+        </where>
+    </delete>
+
+    <select id="getMenuIdsByApiId" resultType="java.lang.Integer">
+        select menu_id
+        from sys_menu_api
+        where api_id = #{apiId}
+    </select>
+</mapper>

@@ -24,7 +24,7 @@
                  left join sys_group g
                            on m.group_id = g.group_id
                  left join sys_user u
-                           on m.username = u.user_name
+                           on m.username = u.username
         order by m.group_id
     </select>
 
