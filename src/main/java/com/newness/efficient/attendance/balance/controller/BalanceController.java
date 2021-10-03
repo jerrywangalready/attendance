@@ -18,13 +18,13 @@ public class BalanceController {
     @Resource
     private BalanceService balanceService;
 
-    @RequestMapping("/getTotaledBalance")
-    public Float getTotaledBalance(@AuthenticationPrincipal UserDetails user){
+    @RequestMapping("/getBalance")
+    public Balance getBalance(@AuthenticationPrincipal UserDetails user){
         return balanceService.getTotaledBalance(user.getUsername());
     }
 
-    @RequestMapping("/getBalance")
-    public Balance getBalance(@AuthenticationPrincipal UserDetails user) {
+    @RequestMapping("/getBalanceRecords")
+    public Balance getBalanceRecords(@AuthenticationPrincipal UserDetails user) {
         return balanceService.getBalances(user.getUsername());
     }
 

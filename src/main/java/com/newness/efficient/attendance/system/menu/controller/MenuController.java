@@ -34,4 +34,9 @@ public class MenuController {
     public boolean deleteMenu(@RequestBody MenuEntity menu) {
         return menuService.deleteMenu(menu.getMenuId());
     }
+
+    @GetMapping("/getMenuByUsername")
+    public List<MenuBo> getMenuByUsername(@RequestParam("username") String username) {
+        return menuService.getMenuByUsername(username);
+    }
 }

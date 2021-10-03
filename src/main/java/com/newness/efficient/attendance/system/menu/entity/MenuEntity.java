@@ -9,6 +9,8 @@ public class MenuEntity {
 
     private Integer parentId;
 
+    private String menuCode;
+
     private String menuName;
 
     private Integer sort;

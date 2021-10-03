@@ -1,5 +1,6 @@
 package com.newness.efficient.attendance.system.role.service;
 
+import com.newness.efficient.attendance.system.menu.entity.MenuEntity;
 import com.newness.efficient.attendance.system.role.entity.RoleEntity;
 import com.newness.efficient.attendance.system.role.mapper.RoleMapper;
 import com.newness.efficient.attendance.utils.IdCreator;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
     @Resource
     private RoleMapper roleMapper;
@@ -47,29 +48,43 @@ public class RoleServiceImpl implements RoleService{
         // 删除旧数据
         roleMapper.deleteRoleUserByRoleId(roleId);
         // 插入新数据
-        usernames.forEach(username -> {
-            roleMapper.joinInRoleUser(roleId, username);
-        });
+        if (usernames != null) {
+            usernames.forEach(username -> {
+                roleMapper.joinInRoleUser(roleId, username);
+            });
+        }
     }
 
     @Override
     public void saveRoleMenu(String roleId, List<Integer> menuIds) {
         // 删除旧数据
         roleMapper.deleteRoleMenuByRoleId(roleId);
-        // 插入新数据
-        menuIds.forEach(menuId -> {
-            roleMapper.joinInRoleMenu(roleId, menuId);
-        });
+        if (menuIds != null) {
+            // 插入新数据
+            menuIds.forEach(menuId -> {
+                roleMapper.joinInRoleMenu(roleId, menuId);
+            });
+        }
     }
 
     @Override
-    public List<Integer> getMenuByRoleId(String roleId) {
+    public List<MenuEntity> getMenuByRoleId(String roleId) {
         return roleMapper.getMenuByRoleId(roleId);
     }
 
     @Override
     public List<String> getUsernameByRoleId(String roleId) {
         return roleMapper.getUsernameByRoleId(roleId);
+    }
+
+    @Override
+    public void deleteRoleMenu(String roleId) {
+        roleMapper.deleteRoleMenuByRoleId(roleId);
+    }
+
+    @Override
+    public void deleteRoleUser(String roleId) {
+        roleMapper.deleteRoleUserByRoleId(roleId);
     }
 
 

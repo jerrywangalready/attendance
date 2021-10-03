@@ -58,7 +58,7 @@
         from sys_user su
                  left join sys_role_user sru
                            on su.username = sru.username
-                 left join sys_role sr on sru.role_name = sr.role_name
+                 left join sys_role sr on sru.role_id = sr.role_id
         where sr.role_name = #{role}
     </select>
 

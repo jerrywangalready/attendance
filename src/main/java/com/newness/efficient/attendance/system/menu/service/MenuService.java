@@ -11,5 +11,7 @@ public interface MenuService {
 
     List<MenuBo> getMenu();
 
+    List<MenuBo> getMenuByUsername(String username);
+
     boolean deleteMenu(int menuId);
 }

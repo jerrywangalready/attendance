@@ -3,8 +3,9 @@
 <mapper namespace="com.newness.efficient.attendance.system.menu.mapper.MenuMapper">
 
     <insert id="addMenu">
-        insert into sys_menu (menu_name, parent_id, level_num, menu_type)
-        values (#{menuName},
+        insert into sys_menu (menu_code, menu_name, parent_id, level_num, menu_type)
+        values (#{menuCode},
+                #{menuName},
                 #{parentId},
                 #{levelNum},
                 #{menuType})
@@ -12,7 +13,8 @@
 
     <update id="updateMenu">
         update sys_menu
-        set menu_name = #{menuName}
+        set menu_code = #{menuCode},
+            menu_name = #{menuName}
         where menu_id = #{menuId}
     </update>
     <delete id="deleteMenu">
@@ -26,6 +28,15 @@
         select *
         from sys_menu
         order by level_num desc, parent_id, sort
+    </select>
+
+    <select id="getMenuByUsername" resultType="com.newness.efficient.attendance.system.menu.model.MenuBo">
+        select sm.*
+        from sys_menu sm
+                 left join sys_role_menu srm on sm.menu_id = srm.menu_id
+                 left join sys_role_user sru on srm.role_id = sru.role_id
+        where username = #{username}
+        order by sm.level_num desc, parent_id, sort
     </select>
 
 </mapper>

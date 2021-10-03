@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.newness.efficient.attendance.balance.mapper.BalanceMapper">
 
-
-    <select id="getTotaledBalance" resultType="java.lang.Float">
-        select totaled_balance
+    <select id="getTotaledBalance" resultType="com.newness.efficient.attendance.balance.bo.Balance">
+        select shift, annually
         from atd_vacation_balance
         where username = #{username}
     </select>
+
 </mapper>

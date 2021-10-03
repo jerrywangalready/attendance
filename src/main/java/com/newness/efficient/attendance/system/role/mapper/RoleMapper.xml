@@ -42,9 +42,10 @@
         where role_id = #{roleId}
     </delete>
 
-    <select id="getMenuByRoleId" resultType="java.lang.Integer">
-        select menu_id
-        from sys_role_menu
+    <select id="getMenuByRoleId" resultType="com.newness.efficient.attendance.system.menu.entity.MenuEntity">
+        select sm.*
+        from sys_role_menu srm
+        left join sys_menu sm on srm.menu_id = sm.menu_id
         where role_id = #{roleId}
     </select>
 

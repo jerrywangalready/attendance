@@ -25,8 +25,18 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuBo> getMenu() {
-        List<MenuBo> menuTree = new ArrayList<>();
         List<MenuBo> menus = menuMapper.getMenu();
+        return list2Tree(menus);
+    }
+
+    @Override
+    public List<MenuBo> getMenuByUsername(String username) {
+        List<MenuBo> menus = menuMapper.getMenuByUsername(username);
+        return list2Tree(menus);
+    }
+
+    private List<MenuBo> list2Tree(List<MenuBo> menus) {
+        List<MenuBo> menuTree = new ArrayList<>();
 
         Map<String, List<MenuBo>> tempMap = new HashMap<>();
 

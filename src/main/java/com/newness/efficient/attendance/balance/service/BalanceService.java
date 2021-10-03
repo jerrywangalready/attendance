@@ -4,7 +4,7 @@ import com.newness.efficient.attendance.balance.bo.Balance;
 
 public interface BalanceService {
 
-    Float getTotaledBalance(String username);
+    Balance getTotaledBalance(String username);
 
     Balance getBalances(String username);
 

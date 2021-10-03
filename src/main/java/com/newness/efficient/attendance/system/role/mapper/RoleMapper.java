@@ -1,5 +1,6 @@
 package com.newness.efficient.attendance.system.role.mapper;
 
+import com.newness.efficient.attendance.system.menu.entity.MenuEntity;
 import com.newness.efficient.attendance.system.role.entity.RoleEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -28,7 +29,7 @@ public interface RoleMapper {
 
     int deleteRoleMenuByRoleId(String roleId);
 
-    List<Integer> getMenuByRoleId(String roleId);
+    List<MenuEntity> getMenuByRoleId(String roleId);
 
     List<String> getUsernameByRoleId(String roleId);
 }

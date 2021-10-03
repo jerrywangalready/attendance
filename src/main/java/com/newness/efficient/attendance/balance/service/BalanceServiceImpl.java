@@ -13,8 +13,8 @@ public class BalanceServiceImpl implements BalanceService {
     private BalanceMapper balanceMapper;
 
     @Override
-    public Float getTotaledBalance(String username) {
-        return balanceMapper.getTotaledBalance(username) == null ? 0 : balanceMapper.getTotaledBalance(username);
+    public Balance getTotaledBalance(String username) {
+        return balanceMapper.getTotaledBalance(username) == null ? new Balance() : balanceMapper.getTotaledBalance(username);
     }
 
     /**

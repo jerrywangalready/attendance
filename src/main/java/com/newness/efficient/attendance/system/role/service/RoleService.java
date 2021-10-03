@@ -1,5 +1,6 @@
 package com.newness.efficient.attendance.system.role.service;
 
+import com.newness.efficient.attendance.system.menu.entity.MenuEntity;
 import com.newness.efficient.attendance.system.role.entity.RoleEntity;
 
 import java.util.List;
@@ -16,9 +17,13 @@ public interface RoleService {
 
     void saveRoleUser(String roleId, List<String> usernames);
 
-    void saveRoleMenu(String roleId, List<Integer> menuIds);
+    void saveRoleMenu(String roleId, List<Integer> menus);
 
-    List<Integer> getMenuByRoleId(String roleId);
+    List<MenuEntity> getMenuByRoleId(String roleId);
 
     List<String> getUsernameByRoleId(String roleId);
+
+    void deleteRoleMenu(String roleId);
+
+    void deleteRoleUser(String roleId);
 }

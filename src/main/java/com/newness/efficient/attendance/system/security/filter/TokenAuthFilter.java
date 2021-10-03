@@ -135,7 +135,8 @@ public class TokenAuthFilter extends BasicAuthenticationFilter {
 
 //            System.out.println(hashAntPath && (hasMethod != -1));
             //两者都成立，返回真，否则返回假
-            return hashAntPath && (hasMethod != -1);
+//            return hashAntPath && (hasMethod != -1);
+            return hashAntPath;
         });
 
         return rs;

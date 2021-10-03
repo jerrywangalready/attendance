@@ -2,6 +2,7 @@ package com.newness.efficient.attendance.system.role.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.newness.efficient.attendance.system.menu.entity.MenuEntity;
 import com.newness.efficient.attendance.system.role.bo.RoleManageBo;
 import com.newness.efficient.attendance.system.role.entity.RoleEntity;
 import com.newness.efficient.attendance.system.role.service.RoleService;
@@ -34,6 +35,12 @@ public class RoleController {
     @DeleteMapping("/deleteRole")
     public boolean deleteRole(@RequestBody RoleEntity roleEntity) {
         // todo 删除之前需要验证是否被使用
+
+        // 删除角色菜单关系数据
+        roleService.deleteRoleMenu(roleEntity.getRoleId());
+        // 删除角色用户关系数据
+        roleService.deleteRoleUser(roleEntity.getRoleId());
+        // 删除角色数据
         roleService.deleteRole(roleEntity.getRoleId());
         return true;
     }
@@ -59,10 +66,10 @@ public class RoleController {
 
     @GetMapping("/getManageByRoleId")
     public RoleManageBo getManageByRoleId(@RequestParam("roleId") String roleId) {
-        List<Integer> menuIds = roleService.getMenuByRoleId(roleId);
+        List<MenuEntity> menus = roleService.getMenuByRoleId(roleId);
         List<String> usernames = roleService.getUsernameByRoleId(roleId);
         RoleManageBo bo = new RoleManageBo();
-        bo.setMenuIds(menuIds);
+        bo.setMenus(menus);
         bo.setUsernames(usernames);
         return bo;
     }

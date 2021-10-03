@@ -59,8 +59,11 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = tokenManager.generateToken(user.getUsername());
         //把用户名称和用户权限列表放到redis
         redisTemplate.opsForValue().set(user.getUsername(), JSON.toJSONString(new BaseUser(user)));
+
         //返回token
-        ResponseUtil.out(response, R.ok().data("token", token));
+        R result = R.ok();
+        result.data("token", token);
+        ResponseUtil.out(response, result);
     }
 
     //3 认证失败调用的方法

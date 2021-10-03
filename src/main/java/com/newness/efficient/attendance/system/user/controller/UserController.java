@@ -9,10 +9,7 @@ import com.newness.efficient.attendance.system.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -30,8 +27,8 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @PostMapping("/detail")
-    public BaseUser detail(String username) {
+    @GetMapping("/detail")
+    public BaseUser detail(@RequestParam("username") String username) {
         return authService.getUserInfoByUsername(username);
     }
 
@@ -64,4 +61,5 @@ public class UserController {
     public List<Map<String, String>> getUsersByRole(@RequestBody Map<String, String> param) {
         return userService.getUsersByRole(param.get("role"));
     }
+
 }

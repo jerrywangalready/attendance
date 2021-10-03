@@ -11,9 +11,12 @@ public interface MenuMapper {
 
     List<MenuBo> getMenu();
 
+    List<MenuBo> getMenuByUsername(String username);
+
     boolean addMenu(MenuEntity param);
 
     boolean updateMenu(MenuEntity param);
 
     boolean deleteMenu(int menuId);
+
 }
